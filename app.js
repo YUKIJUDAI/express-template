@@ -5,7 +5,7 @@ var app = express();
 
 //日志
 var log4js = require('log4js');
-var { log, logInfo, logError } = require("./config/log_config");
+var { log, logInfo, logError } = require("./utils/log");
 app.use(log4js.connectLogger(log));
 app.use(log4js.connectLogger(logInfo));
 app.use(log4js.connectLogger(logError));
