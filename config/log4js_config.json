@@ -1,0 +1,38 @@
+{
+    "appenders": {
+        "console": {
+            "type": "console",
+            "category": "console"
+        },
+        "info": {
+            "type": "dateFile",
+            "filename": "logs/app-info.log",
+            "category": "console"
+        },
+        "error": {
+            "type": "dateFile",
+            "filename": "logs/app-error.log"
+        }
+    },
+    "replaceConsole": true,
+    "categories": {
+        "default": {
+            "appenders": [
+                "console"
+            ],
+            "level": "all"
+        },
+        "info": {
+            "appenders": [
+                "info"
+            ],
+            "level": "info"
+        },
+        "error": {
+            "appenders": [
+                "error"
+            ],
+            "level": "error"
+        }
+    }
+}
