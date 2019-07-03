@@ -6,25 +6,11 @@ var { log, logInfo, logError } = require("../utils/log");
 var pool = mysql.createPool(mysqlConfig);
 
 /**
- * 对query执行的结果自定义返回JSON结果
- */
-function responseDoReturn(res, result, resultJSON) {
-    if (typeof result === "undefined") {
-        res.json({
-            code: "201",
-            msg: "failed to do"
-        });
-    } else {
-        res.json(result);
-    }
-}
-
-/**
  * 封装query之sql带不占位符func
  */
 function query(sql, callback) {
-    pool.getConnection(function (err, connection) {       
-        connection.query(sql, function (err, rows) {        
+    pool.getConnection(function (err, connection) {
+        connection.query(sql, function (err, rows) {
             callback(err, rows);
             //释放链接
             connection.release();
@@ -48,6 +34,5 @@ function queryArgs(sql, args, callback) {
 //exports
 module.exports = {
     query: query,
-    queryArgs: queryArgs,
-    doReturn: responseDoReturn
+    queryArgs: queryArgs
 };

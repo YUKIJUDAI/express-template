@@ -5,21 +5,21 @@ var { log, logInfo, logError } = require("../utils/log");
 
 // 增
 router.post('/addUser', function (req, res, next) {
-    db.query("INSERT INTO user (name) VALUES ('" + req.body.name + "')", function (err, data) {
+    db.queryArgs("INSERT INTO user (name) VALUES (?)", [req.body.name], function (err, data) {
         !err && res.send("添加成功");
     });
 });
 
 // 删
 router.post('/delUser', function (req, res, next) {
-    db.query("DELETE FROM user WHERE id =" + req.body.id, function (err, data) {
+    db.queryArgs("DELETE FROM user WHERE id = ?", [req.body.id], function (err, data) {
         !err && res.send("删除成功");
     });
 });
 
 // 改
 router.post('/editUser', function (req, res, next) {
-    db.query("UPDATE user SET name = '" + req.body.name + "' WHERE id =" + req.body.id, function (err, data) {
+    db.queryArgs("UPDATE user SET name = ? WHERE id = ?", [req.body.name, req.body.id], function (err, data) {
         !err && res.send("修改成功");
     });
 });
