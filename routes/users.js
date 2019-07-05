@@ -5,41 +5,47 @@ var router = express.Router();
 var sequelize = require("../utils/mysql");
 var { log, logInfo, logError } = require("../utils/log");
 
-const UserModule = sequelize.define("user", {
-    id: {
-        type: Sequelize.INTEGER(10),
-        primaryKey: true,
-        autoIncrement: true,
+const UserModule = sequelize.define(
+    "user",
+    {
+        id: {
+            type: Sequelize.INTEGER(10),
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: Sequelize.STRING(25),
     },
-    name: Sequelize.STRING(25),
-}, { timestamps: false });
+    {
+        timestamps: false,
+        tableName: "user"
+    }
+);
 
 // 增
-// router.post('/addUser', function (req, res, next) {
-//     db.queryArgs("INSERT INTO user (name) VALUES (?)", [req.body.name], function (err, data) {
-//         !err && res.send("添加成功");
-//     });
-// });
+router.post('/addUser', function (req, res, next) {
+    UserModule.create({ name: req.body.name }).then(data => {
+        res.json({ msg: "添加成功" });
+    });
+});
 
 // 删
-// router.post('/delUser', function (req, res, next) {
-//     db.queryArgs("DELETE FROM user WHERE id = ?", [req.body.id], function (err, data) {
-//         !err && res.send("删除成功");
-//     });
-// });
+router.post('/delUser', function (req, res, next) {
+    UserModule.destroy({ where: { id: { eq: req.body.id } } }).then(data => {
+        res.json({ msg: "删除成功" });
+    })
+});
 
 // 改
-// router.post('/editUser', function (req, res, next) {
-//     db.queryArgs("UPDATE user SET name = ? WHERE id = ?", [req.body.name, req.body.id], function (err, data) {
-//         !err && res.send("修改成功");
-//     });
-// });
+router.post('/editUser', function (req, res, next) {
+    UserModule.update({ name: req.body.name }, { where: { id: { eq: req.body.id } } }).then(data => {
+        res.json({ msg: "修改成功" });
+    });
+});
 
 // 查
 router.get('/getUserList', function (req, res, next) {
     UserModule.findAll().then(data => {
-        log.info(data);
-        res.json(users);
+        res.json(data);
     });
 });
 

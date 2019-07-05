@@ -1,5 +1,5 @@
 ###sequelize中文api
-https://itbilu.com/nodejs/npm/V1PExztfb.html#definition-import
+https://itbilu.com/nodejs/npm/VkYIaRPz-.html
 
 ###sequelize数据类型
 ```node
