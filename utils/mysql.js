@@ -1,4 +1,3 @@
-var mysql = require("mysql");
 var Sequlize = require("sequelize");
 var mysqlConfig = require("../config/mysql_config");
 var { log, logInfo, logError } = require("../utils/log");
@@ -16,6 +15,9 @@ const sequelize = new Sequlize(
             min: 0,
             acquire: 30000,
             idle: 10000
+        },
+        logging: function (sql) {
+            logInfo.info(sql);
         }
     },
 )

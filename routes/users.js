@@ -30,14 +30,14 @@ router.post('/addUser', function (req, res, next) {
 
 // 删
 router.post('/delUser', function (req, res, next) {
-    UserModule.destroy({ where: { id: { eq: req.body.id } } }).then(data => {
+    UserModule.destroy({ where: { id: req.body.id } }).then(data => {
         res.json({ msg: "删除成功" });
     })
 });
 
 // 改
 router.post('/editUser', function (req, res, next) {
-    UserModule.update({ name: req.body.name }, { where: { id: { eq: req.body.id } } }).then(data => {
+    UserModule.update({ name: req.body.name }, { where: { id: req.body.id } }).then(data => {
         res.json({ msg: "修改成功" });
     });
 });
