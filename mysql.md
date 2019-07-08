@@ -1,5 +1,5 @@
 ###sequelize中文api
-https://itbilu.com/nodejs/npm/VkYIaRPz-.html
+https://github.com/demopark/sequelize-docs-Zh-CN/tree/master
 
 ###sequelize数据类型
 ```node
