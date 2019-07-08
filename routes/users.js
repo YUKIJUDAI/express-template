@@ -1,33 +1,12 @@
-var express = require('express');
+const express = require('express');
 const Sequelize = require('sequelize');
 
-var router = express.Router();
-var sequelize = require("../utils/mysql");
-var { log, logInfo, logError } = require("../utils/log");
+const router = express.Router();
+const { UserModule, UserExtendModule } = require("../sqlModule/index");
+const { log, logInfo, logError } = require("../utils/log");
 
-const UserModule = sequelize.define(
-    "user",
-    {
-        id: {
-            type: Sequelize.INTEGER(10),
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        name: {
-            type: Sequelize.STRING(25),
-            validate: {
-                is: {
-                    args: ["^[a-z]+$", 'i'],
-                    msg: "只允许添加字母"
-                }
-            }
-        },
-    },
-    {
-        timestamps: false,
-        tableName: "user"
-    }
-);
+UserModule.hasMany(UserExtendModule);
+UserExtendModule.belongsTo(UserModule, { foreignKey: 'user_id' });
 
 // 增
 router.post('/addUser', function (req, res, next) {
