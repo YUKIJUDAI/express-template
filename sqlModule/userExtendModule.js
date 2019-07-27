@@ -1,26 +1,25 @@
 const Sequelize = require('sequelize');
 var sequelize = require("../utils/mysql");
 
-const UserExtendModule = sequelize.define(
-    "user_extend",
+class UserExtend extends Sequelize.Model { };
+UserExtend.init(
     {
         id: {
             type: Sequelize.INTEGER(10),
             primaryKey: true,
             autoIncrement: true,
         },
-        user_id: {
-            type: Sequelize.INTEGER(10),
-        },
-        age: {
+        project_name: {
             type: Sequelize.INTEGER(3),
         },
     },
     {
+        sequelize,
         timestamps: false,
+        modelName: "user_extend",
         tableName: "user_extend",
         underscored: true
     }
 );
 
-module.exports = UserExtendModule;
+module.exports = UserExtend;

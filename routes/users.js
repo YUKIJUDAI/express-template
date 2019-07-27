@@ -2,15 +2,14 @@ const express = require('express');
 const Sequelize = require('sequelize');
 
 const router = express.Router();
-const { UserModule, UserExtendModule } = require("../sqlModule/index");
+const { User, UserExtend } = require("../sqlModule/index");
 const { log, logInfo, logError } = require("../utils/log");
 
-UserModule.hasMany(UserExtendModule);
-UserExtendModule.belongsTo(UserModule, { foreignKey: 'user_id' });
+UserExtend.belongsTo(User);
 
 // 增
 router.post('/addUser', function (req, res, next) {
-    UserModule.create({ name: req.body.name }).then(data => {
+    User.create({ name: req.body.name }).then(data => {
         res.json({ msg: "添加成功" });
     }).catch(err => {
         logError.error(err);
@@ -20,7 +19,7 @@ router.post('/addUser', function (req, res, next) {
 
 // 删
 router.post('/delUser', function (req, res, next) {
-    UserModule.destroy({ where: { id: req.body.id } }).then(data => {
+    User.destroy({ where: { id: req.body.id } }).then(data => {
         res.json({ msg: "删除成功" });
     }).catch(err => {
         logError.error(err);
@@ -30,7 +29,7 @@ router.post('/delUser', function (req, res, next) {
 
 // 改
 router.post('/editUser', function (req, res, next) {
-    UserModule.update({ name: req.body.name }, { where: { id: req.body.id } }).then(data => {
+    User.update({ name: req.body.name }, { where: { id: req.body.id } }).then(data => {
         res.json({ msg: "修改成功" });
     }).catch(err => {
         logError.error(err);
@@ -40,7 +39,12 @@ router.post('/editUser', function (req, res, next) {
 
 // 查
 router.get('/getUserList', function (req, res, next) {
-    UserModule.findAll().then(data => {
+    UserExtend.findAll({
+        include: [{
+            model: User,
+            attributes: ['name']
+        }]
+    }).then(data => {
         res.json(data);
     }).catch(err => {
         logError.error(err);

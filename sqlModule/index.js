@@ -1,4 +1,4 @@
-const UserModule = require("./userModule");
-const UserExtendModule = require("./userModule");
+const User = require("./userModule");
+const UserExtend = require("./userExtendModule");
 
-module.exports = { UserModule, UserExtendModule }
+module.exports = { User, UserExtend }
